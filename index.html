@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <script data-require="lodash.js@4.11.1" data-semver="4.11.1" src="https://cdn.jsdelivr.net/lodash/4.11.1/lodash.js"></script>
+
+    <title>Title</title>
+    <style>
+    body {
+      font-size: 20px;
+    }
+    ul {
+      list-style: none;
+    }
+    span {
+      display: block;
+    }
+    </style>
+  </head>
+
+  <body>
+    <!-- Добавить -->
+      <form action="">
+        <input type="id" placeholder="id" id="id">
+        <input type="city" placeholder="city" id="city">
+        <input type="street" placeholder="street" id="street">
+        <input type="countOfHouses" placeholder="countOfHouses" id="countOfHouses">
+        <input type="submit" name="button" value="Добавить" id="addItem">
+      </form>
+
+      <button id="max-count">Max значение</button>
+      <button id="min-count">Min значение</button>
+      <button id="max-ver">Полная версия таблицы</button>
+      <button id="min-ver">Краткая версия таблицы</button>
+    <!-- Конец добавить -->
+    <div id="items">
+
+    </div>
+
+    <script type="text/template" id="template" style="display: none">
+      <ul class="item" id="<%-id%>">
+        <span><li class="id"><i>id:</i> <b><%-id%></b></li></span>
+        <li class="city"><i>city:</i> <b><%-city%></b></li>
+        <li class="street"><i>street:</i> <b><%-street%></b></li>
+        <li class="countOfHouses"><i>countOfHouses:</i> <b><%-countOfHouses%></b></li>
+        <li><button class="delete-item">Удалить</button></li>
+      </ul>
+    </script>
+
+    <script type="text/template" id="template-2" style="display: none">
+      <ul class="item" id="<%-id%>">
+        <li class="city"><i>city:</i> <b><%-city%></b></li>
+        <li class="street"><i>street:</i> <b><%-street%></b></li>
+        <li><button class="delete-item">Удалить</button></li>
+      </ul>
+    </script>
+
+    <script src="citiesArr.js"></script>
+    <script src="main.js"></script>
+    <script src="tableManager.js"></script>
+    <script src="cityManager.js"></script>
+
+    <script>
+
+    //Преобразуем наш массив в JSON и кидаем в наш класс.
+    let a = JSON.stringify(citiesArr);
+
+    let myCityManager = new CityManager({
+        itemsWrap : document.getElementById('items'),
+        btnMaxCount : document.getElementById('max-count'),
+        btnMinCount : document.getElementById('min-count'),
+        btnMaxVer : document.getElementById('max-ver'),
+        btnMinVer : document.getElementById('min-ver'),
+        btnAdd : document.getElementById('addItem'),
+        jsonObj : a
+      });
+
+    </script>
+
+  </body>
+
+</html>

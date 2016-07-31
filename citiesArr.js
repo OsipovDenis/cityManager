@@ -1,0 +1,20 @@
+let citiesArr = [
+  {
+    id: 1,
+    city: "Samara",
+    street: "Michurina",
+    countOfHouses: 78
+  },
+  {
+    id: 2,
+    city: "Samara",
+    street: "Stara-Zagora",
+    countOfHouses: 178
+  },
+  {
+    id: 3,
+    city: "Samara",
+    street: "Leningradskaya",
+    countOfHouses: 781
+  }
+];
