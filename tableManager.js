@@ -4,7 +4,7 @@ let tableManager = (function(arrFromCM){
       items.innerHTML = "";
       arrFromCM.forEach(function(item, i, arr){
         let container = document.createElement('div');
-        container.innerHTML = compiled1(arr[i]);
+        container.innerHTML = compiledDetailed(arr[i]);
         items.appendChild(container);
       })
 
@@ -13,7 +13,7 @@ let tableManager = (function(arrFromCM){
       items.innerHTML = "";
       arrFromCM.forEach(function(item, i, arr){
         let container = document.createElement('div');
-        container.innerHTML = compiled2(arr[i]);
+        container.innerHTML = compiledCompact(arr[i]);
         items.appendChild(container);
       })
     },
@@ -21,7 +21,7 @@ let tableManager = (function(arrFromCM){
     getStreetWithSomeHouses: function(objFromCM){
       items.innerHTML = "";
       let container = document.createElement('div');
-      container.innerHTML = compiled1(objFromCM);
+      container.innerHTML = compiledDetailed(objFromCM);
       items.appendChild(container);
     }
   };

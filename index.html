@@ -22,33 +22,33 @@
   <body>
     <!-- Добавить -->
       <form action="">
-        <input type="id" placeholder="id" id="id">
-        <input type="city" placeholder="city" id="city">
-        <input type="street" placeholder="street" id="street">
-        <input type="countOfHouses" placeholder="countOfHouses" id="countOfHouses">
-        <input type="submit" name="button" value="Добавить" id="addItem">
+        <input type="text" placeholder="id" id="Id" title="Число должно быть уникальным, вводится пользователем">
+        <input type="text" placeholder="city" id="City">
+        <input type="text" placeholder="street" id="Street">
+        <input type="text" placeholder="countOfHouses" id="CountOfHouses" title="Должно быть число, иначе NaN!">
+        <input type="submit" name="button" value="Добавить" id="AddItem">
       </form>
 
-      <button id="max-count">Max значение</button>
-      <button id="min-count">Min значение</button>
-      <button id="max-ver">Полная версия таблицы</button>
-      <button id="min-ver">Краткая версия таблицы</button>
+      <button id="MaxCount">Max значение</button>
+      <button id="MinCount">Min значение</button>
+      <button id="MaxVer">Полная версия таблицы</button>
+      <button id="MinVer">Краткая версия таблицы</button>
     <!-- Конец добавить -->
     <div id="items">
 
     </div>
 
-    <script type="text/template" id="template" style="display: none">
+    <script type="text/template" id="template">
       <ul class="item" id="<%-id%>">
-        <span><li class="id"><i>id:</i> <b><%-id%></b></li></span>
-        <li class="city"><i>city:</i> <b><%-city%></b></li>
-        <li class="street"><i>street:</i> <b><%-street%></b></li>
-        <li class="countOfHouses"><i>countOfHouses:</i> <b><%-countOfHouses%></b></li>
+        <span><li><i>id:</i> <b><%-id%></b></li></span>
+        <li><i>city:</i> <b><%-city%></b></li>
+        <li><i>street:</i> <b><%-street%></b></li>
+        <li><i>countOfHouses:</i> <b><%-countOfHouses%></b></li>
         <li><button class="delete-item">Удалить</button></li>
       </ul>
     </script>
 
-    <script type="text/template" id="template-2" style="display: none">
+    <script type="text/template" id="template-2">
       <ul class="item" id="<%-id%>">
         <li class="city"><i>city:</i> <b><%-city%></b></li>
         <li class="street"><i>street:</i> <b><%-street%></b></li>
@@ -56,26 +56,20 @@
       </ul>
     </script>
 
-    <script src="citiesArr.js"></script>
     <script src="main.js"></script>
     <script src="tableManager.js"></script>
+    <script src="xhr.js"></script>
     <script src="cityManager.js"></script>
 
     <script>
-
-    //Преобразуем наш массив в JSON и кидаем в наш класс.
-    let a = JSON.stringify(citiesArr);
-
     let myCityManager = new CityManager({
         itemsWrap : document.getElementById('items'),
-        btnMaxCount : document.getElementById('max-count'),
-        btnMinCount : document.getElementById('min-count'),
-        btnMaxVer : document.getElementById('max-ver'),
-        btnMinVer : document.getElementById('min-ver'),
-        btnAdd : document.getElementById('addItem'),
-        jsonObj : a
+        btnMaxCount : document.getElementById('MaxCount'),
+        btnMinCount : document.getElementById('MinCount'),
+        btnMaxVer : document.getElementById('MaxVer'),
+        btnMinVer : document.getElementById('MinVer'),
+        btnAdd : document.getElementById('AddItem')
       });
-
     </script>
 
   </body>

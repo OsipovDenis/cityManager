@@ -5,30 +5,42 @@ class CityManager {
       this.btnMinCount = options.btnMinCount,
       this.btnMaxVer = options.btnMaxVer,
       this.btnMinVer = options.btnMinVer,
-      this.btnAdd = options.btnAdd,
-      this.jsonObj = options.jsonObj;
+      this.btnAdd = options.btnAdd;
 
-    this.jsonToArray();
-    tableManager.createBigTable(this.arrOfCities);
+    let self = this;
+    fetch({
+      method: 'GET',
+      url: url
+    }).then( function(data){
+      console.log(data);
+      self.jsonToArray(data);
+    })
 
     this.btnMinVer.onclick = this.showMinVer.bind(this);
     this.btnMaxVer.onclick = this.showMaxVer.bind(this);
     this.btnAdd.onclick = this.addCity.bind(this);
-    this.btnMaxCount.onclick = this.FindMaxCountOfHouse.bind(this);
-    this.btnMinCount.onclick = this.FindMinCountOfHouse.bind(this);
+    this.btnMaxCount.onclick = this.findMaxCountOfHouse.bind(this);
+    this.btnMinCount.onclick = this.findMinCountOfHouse.bind(this);
     this.itemsWrap.onclick = this.deleteCity.bind(this);
   }
 
   addCity(e) {
     e.preventDefault();
     this.arrOfCities.push({
-      id: +document.getElementById('id').value,
-      city: document.getElementById('city').value,
-      street: document.getElementById('street').value,
-      countOfHouses: +document.getElementById('countOfHouses').value
+      id: +document.getElementById('Id').value,
+      city: document.getElementById('City').value,
+      street: document.getElementById('Street').value,
+      countOfHouses: +document.getElementById('CountOfHouses').value
     });
 
-    tableManager.createBigTable(this.arrOfCities);
+    let self = this;
+    fetch({
+      method: 'PUT',
+      url: url,
+      data: this.arrOfCities
+    }).then( function(){
+      tableManager.createBigTable(self.arrOfCities);
+    })
   }
 
   deleteCity(e) {
@@ -37,13 +49,19 @@ class CityManager {
     if (target.tagName == "BUTTON") {
       let idItem = +target.parentNode.parentNode.id;
 
-      this.arrOfCities.forEach((item, i, arr) => {
-        if (item.id === idItem) {
-          arr.splice(i, 1);
-        }
-      });
+      _.remove(this.arrOfCities, function(item){
+        return item.id === idItem;
+      })
     }
-    tableManager.createBigTable(this.arrOfCities);
+
+    let self = this;
+    fetch({
+      method: 'PUT',
+      url: url,
+      data: this.arrOfCities
+    }).then( function(){
+      tableManager.createBigTable(self.arrOfCities);
+    })
   }
 
   showMinVer() {
@@ -55,39 +73,30 @@ class CityManager {
   }
 
   //Найти минимальное количество домов
-  FindMinCountOfHouse() {
-    let temp = 999999;
+  findMinCountOfHouse() {
+    let temp;
 
-    this.arrOfCities.forEach((item, i, arr) => {
-
-      if (temp > arr[i].countOfHouses) {
-        temp = arr[i].countOfHouses;
-        this.objOfMinHouses = Object.assign({}, arr[i]);
-      }
-
+    this.objOfMinHouses = _.minBy(this.arrOfCities, function(item){
+      return item.countOfHouses;
     });
 
     tableManager.getStreetWithSomeHouses(this.objOfMinHouses);
   }
 
   // Найти максимальное количество домов
-  FindMaxCountOfHouse() {
-    let temp = 0;
+  findMaxCountOfHouse() {
 
-    this.arrOfCities.forEach((item, i, arr) => {
-
-      if (temp < arr[i].countOfHouses) {
-        temp = arr[i].countOfHouses;
-        this.objOfMaxHouses = Object.assign({}, arr[i]);
-      }
-
+    this.objOfMaxHouses = _.maxBy(this.arrOfCities, function(item){
+      return item.countOfHouses;
     });
 
     tableManager.getStreetWithSomeHouses(this.objOfMaxHouses);
   }
 
-  jsonToArray() {
-    this.arrOfCities = JSON.parse(this.jsonObj);
+  jsonToArray(jsonObj) {
+    // console.log(jsonObj);
+    this.arrOfCities = JSON.parse(jsonObj);
+    tableManager.createBigTable(this.arrOfCities);
   }
 
 }

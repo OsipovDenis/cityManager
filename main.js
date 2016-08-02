@@ -1,4 +1,5 @@
 let bigTemplate = document.getElementById('template').innerHTML,
-    compiled1 = _.template(bigTemplate),
+    compiledDetailed = _.template(bigTemplate),
     smallTemplate = document.getElementById('template-2').innerHTML,
-    compiled2 = _.template(smallTemplate);
+    compiledCompact = _.template(smallTemplate),
+    url = 'https://citymanager-aaec7.firebaseio.com/cities.json';
